@@ -7,13 +7,111 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="282dp"
+        android:layout_height="331dp"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="397dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discovery App"
+        android:id="@+id/textView"
+        android:layout_width="71dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="352dp"
+        android:layout_marginEnd="290dp"
+        android:layout_marginBottom="338dp"
+        android:fontFamily="casual"
+        android:text="E-posta"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="71dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="423dp"
+        android:layout_marginEnd="263dp"
+        android:layout_marginBottom="267dp"
+        android:fontFamily="casual"
+        android:text="Şifre"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="343dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="343dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNumberPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="405dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="267dp"
+        android:ems="10"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="348dp"
+        android:layout_height="445dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginEnd="63dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arkaplan" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="142dp"
+        android:layout_height="71dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="471dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="189dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
