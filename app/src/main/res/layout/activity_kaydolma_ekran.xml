@@ -5,28 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/arkaplan">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="282dp"
-        android:layout_height="331dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="397dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+    android:background="@drawable/arkaplan"
+    tools:context=".KaydolmaEkran">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mailLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="300dp"
         app:boxStrokeColor="@color/mavi"
         app:hintTextColor="@color/mavi"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,10 +25,8 @@
             android:id="@+id/mailgir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
             android:hint="Epostanızı giriniz."
-            android:inputType="textEmailAddress"
-            android:textColor="@color/black" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -62,53 +47,71 @@
             android:id="@+id/sifregir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Sifrenizi giriniz."
-            android:inputType="textPassword"
+            android:hint="Sifre belirleyin"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            android:textColor="@color/black" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sifredogrulalayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        app:boxStrokeColor="@color/mavi"
+        app:hintTextColor="@color/mavi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sifrelayout"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sifredogrula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Sifreyi Yeniden Girin"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/giris"
+        android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:background="@color/mavi"
-        android:text="Giriş"
+        android:text="Kayıt Ol"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifrelayout" />
+        app:layout_constraintTop_toBottomOf="@+id/sifredogrulalayout" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hesabınız yoksa kayıt olun !"
+        android:text="Hesabın varsa giriş yap !"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/giris" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <Button
-        android:id="@+id/kayit"
-        android:layout_width="287dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="121dp"
-        android:layout_marginTop="665dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="30dp"
-        android:alpha="100"
-        android:background="#03FFFFFF"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="242dp"
+        android:layout_height="360dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="350dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
