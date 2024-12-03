@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MobileProgramming"
         tools:targetApi="31">
         <activity
+            android:name=".Giris"
+            android:exported="false" />
+        <activity
             android:name=".KaydolmaEkran"
             android:exported="false" />
         <activity
