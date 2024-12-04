@@ -42,6 +42,7 @@
             android:hint="Epostanızı giriniz."
             android:inputType="textEmailAddress"
             android:textColor="@color/black" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -102,9 +103,36 @@
         android:layout_marginStart="121dp"
         android:layout_marginTop="665dp"
         android:layout_marginEnd="116dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="17dp"
         android:alpha="100"
         android:background="#03FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="77dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="511dp"
+        android:layout_marginEnd="318dp"
+        android:layout_marginBottom="154dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/googlelogo" />
+
+    <Button
+        android:id="@+id/googleGiris"
+        android:layout_width="72dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="511dp"
+        android:layout_marginEnd="320dp"
+        android:layout_marginBottom="157dp"
+        android:alpha="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

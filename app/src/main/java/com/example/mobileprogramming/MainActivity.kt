@@ -2,22 +2,41 @@ package com.example.mobileprogramming
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SyncRequest
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Im
+import android.provider.ContactsContract.Contacts.Photo
 import android.view.inputmethod.InputBinding
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class MainActivity : AppCompatActivity() {
     private lateinit var firebase: FirebaseAuth
+    private lateinit var signInRequest: BeginSignInRequest
+    private lateinit var googleSignInClient: GoogleSignInClient
+
+    private var oneTapClint: SignInClient? =
+        null//google tarafından yapılan one tap clientin tanımlanmasını sağlar.Bunun üzerinden oturum açma ve kullanıcı doğrulama işlemleri gerçekleştirilir.
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             val email = mailgir.editText?.text.toString()
             val sifre = sifregir.editText?.text.toString()
             if (email.isNotEmpty() && sifre.isNotEmpty()) {
-                firebase.signInWithEmailAndPassword(email,sifre).addOnCompleteListener {
+                firebase.signInWithEmailAndPassword(email, sifre).addOnCompleteListener {
                     if (it.isSuccessful) {
                         Snackbar.make(
                             findViewById(android.R.id.content),
@@ -73,5 +92,69 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
+        // giriş için yapılandırma ayarları.
+        val googlesign = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.baglantiID))
+            .requestEmail()
+
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, googlesign)
+
+        findViewById<Button>(R.id.googleGiris).setOnClickListener {
+            googlegirisfonk()
+        }
     }
+  //  oturum açma için gerekli bir intent .
+    private fun googlegirisfonk() {
+        val signInIntent = googleSignInClient.signInIntent
+        launcher.launch(signInIntent)//launcher fonksiyonuna yapıştır
+    }
+
+    //oturum açma işleminin sonucunu yakalamak için kullanılır.
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                sonucfonksiyon(task)
+            }
+        }
+
+    private fun sonucfonksiyon(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result//Başarılı Oturum Açma Durumu: Kullanıcının Google hesabı alınır
+            if (account != null) {
+                updateUI(account)
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "Giris Başarılı!",
+                    Snackbar.LENGTH_SHORT
+                ).show();
+            }
+        } else {
+            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+//Kullanıcı Bilgileriyle Firebase'e Oturum Açma
+
+    private fun updateUI(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+        firebase.signInWithCredential(credential).addOnCompleteListener { //Firebase üzerinde oturum açılır.
+            if (it.isSuccessful) {
+                val intent: Intent = Intent(this, Giris::class.java)
+                intent.putExtra("email", account.email)//verilerigönder
+                intent.putExtra("name", account.displayName)//verilerigönder
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
+
+
+
+
+
 }

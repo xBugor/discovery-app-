@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     testImplementation(libs.junit)
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 
 
     androidTestImplementation(libs.androidx.junit)
