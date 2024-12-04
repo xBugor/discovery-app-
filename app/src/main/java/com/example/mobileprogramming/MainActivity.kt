@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         if (task.isSuccessful) {
             val account: GoogleSignInAccount? = task.result//Başarılı Oturum Açma Durumu: Kullanıcının Google hesabı alınır
             if (account != null) {
-                updateUI(account)
+                uiguncelleme(account)
                 Snackbar.make(
                     findViewById(android.R.id.content),
                     "Giris Başarılı!",
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
     }
 //Kullanıcı Bilgileriyle Firebase'e Oturum Açma
 
-    private fun updateUI(account: GoogleSignInAccount) {
+    private fun uiguncelleme(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebase.signInWithCredential(credential).addOnCompleteListener { //Firebase üzerinde oturum açılır.
             if (it.isSuccessful) {
