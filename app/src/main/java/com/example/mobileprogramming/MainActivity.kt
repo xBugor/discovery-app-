@@ -12,14 +12,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
     private lateinit var firebase: FirebaseAuth
-    private lateinit var googleSignInClient : GoogleSignInClient
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -49,7 +49,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     testImplementation(libs.junit)
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
