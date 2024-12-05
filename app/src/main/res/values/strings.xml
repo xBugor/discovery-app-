@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MobileProgramming</string>
     <string name="baglantiID">847789398925-064v8on5687o75no3psfqf0iinq8eruv.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">8710515345694718</string>
+    <string name="fb_login_protocol_scheme">fb8710515345694718</string>
+    <string name="facebook_client_token">93eea2729112bbb2d7704c31e5461f16</string>
+
+
 </resources>

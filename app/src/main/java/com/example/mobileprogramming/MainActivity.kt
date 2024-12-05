@@ -16,6 +16,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.Login
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,7 +41,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebase: FirebaseAuth
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var googleSignInClient: GoogleSignInClient
-
+    private lateinit var callbackManager: CallbackManager
+    private lateinit var loginManager: LoginManager
     private var oneTapClint: SignInClient? =
         null//google tarafından yapılan one tap clientin tanımlanmasını sağlar.Bunun üzerinden oturum açma ve kullanıcı doğrulama işlemleri gerçekleştirilir.
 
@@ -104,6 +112,64 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.googleGiris).setOnClickListener {
             googlegirisfonk()
         }
+
+
+        val fcbkbutton=findViewById<Button>(R.id.fcbklogin)
+        var callbackManager = CallbackManager.Factory.create();
+        val accessToken=AccessToken.getCurrentAccessToken()
+        if(accessToken!=null&&!accessToken.isExpired){
+            startActivity(Intent(this,giris::class.java))
+            finish()
+            LoginManager.getInstance().registerCallback(callbackManager,
+                object :FacebookCallback<LoginResult>{
+                    override fun onCancel() {
+                    }
+
+                    override fun onError(error: FacebookException) {
+                    }
+
+                    override fun onSuccess(result: LoginResult) {
+                        startActivity(Intent(this@MainActivity,giris::class.java))
+                        finish()
+                    }
+
+
+                })
+            fcbkbutton.setOnClickListener(){
+                LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile,email"));
+            }
+
+
+
+
+        }
+         fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            callbackManager.onActivityResult(requestCode,resultCode,data)
+             super.onActivityResult(requestCode, resultCode, data)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
   //  oturum açma için gerekli bir intent .
     private fun googlegirisfonk() {
