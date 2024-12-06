@@ -52,6 +52,39 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         firebase = FirebaseAuth.getInstance()
+        var callbackManager = CallbackManager.Factory.create();// facebook için maneger
+        val fcbkbutton=findViewById<Button>(R.id.fcbklogin)//facebook buton
+        val accessToken=AccessToken.getCurrentAccessToken()// facebook token
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object :FacebookCallback<LoginResult>{
+                override fun onCancel() {
+                }
+
+                override fun onError(error: FacebookException) {
+                }
+
+                override fun onSuccess(result: LoginResult) {
+                    startActivity(Intent(this@MainActivity,Giris::class.java))
+                    finish()
+                }
+
+
+            })
+        fcbkbutton.setOnClickListener(){
+            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile,email"));
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -114,37 +147,18 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val fcbkbutton=findViewById<Button>(R.id.fcbklogin)
-        var callbackManager = CallbackManager.Factory.create();
-        val accessToken=AccessToken.getCurrentAccessToken()
+
         if(accessToken!=null&&!accessToken.isExpired){
             startActivity(Intent(this,giris::class.java))
             finish()
-            LoginManager.getInstance().registerCallback(callbackManager,
-                object :FacebookCallback<LoginResult>{
-                    override fun onCancel() {
-                    }
 
-                    override fun onError(error: FacebookException) {
-                    }
-
-                    override fun onSuccess(result: LoginResult) {
-                        startActivity(Intent(this@MainActivity,giris::class.java))
-                        finish()
-                    }
-
-
-                })
-            fcbkbutton.setOnClickListener(){
-                LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile,email"));
-            }
 
 
 
 
         }
          fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            callbackManager.onActivityResult(requestCode,resultCode,data)
+            callbackManager.onActivityResult(requestCode,resultCode,data    )
              super.onActivityResult(requestCode, resultCode, data)
         }
 
