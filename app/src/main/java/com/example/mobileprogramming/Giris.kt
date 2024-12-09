@@ -1,28 +1,22 @@
 package com.example.mobileprogramming
 
 import android.content.Intent
-import android.Manifest
-
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
-import org.json.JSONObject
 
 class Giris : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
          lateinit var drawerLayout: DrawerLayout
          lateinit var navigationView: NavigationView
-         lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,39 +56,9 @@ class Giris : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-        }
-
-
-
-
-
-
-
-        fun getLocationAndFetchEvents() {
 
     }
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
 
 
 }
