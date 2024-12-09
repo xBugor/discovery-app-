@@ -5,20 +5,56 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
-    android:fitsSystemWindows="true"
     android:background="@drawable/girisarkaplan"
-    tools:context=".Giris">
+    android:fitsSystemWindows="true"
+    tools:context=".Giris"
+    tools:openDrawer="start">
 
     <include
-        layout="@layout/activity_main_content"/>
+        layout="@layout/activity_main_content"
+        android:visibility="visible" />
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/cekmece"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
+        android:visibility="gone"
+        app:dividerInsetStart="60dp"
         app:headerLayout="@layout/cekmece"
-        app:menu="@menu/drawer_elamanlari" />
+
+        app:menu="@menu/drawer_elamanlari"
+        tools:visibility="gone" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/arama"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="102dp"
+
+            android:layout_marginEnd="92dp"
+            android:layout_marginBottom="752dp"
+            android:background="@drawable/cubuk"
+
+
+            android:focusable="false"
+            app:backgroundTint="#000000"
+            app:closeIcon="@drawable/clear"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Etkinlik Arayın..."
+            app:searchHintIcon="@null"
+            app:searchIcon="@drawable/arama" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
