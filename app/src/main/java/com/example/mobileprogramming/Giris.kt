@@ -1,4 +1,5 @@
 package com.example.mobileprogramming
+import android.Manifest
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,15 +7,27 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
+import android.location.Location
+
 import com.google.android.material.navigation.NavigationView
 
 class Giris : AppCompatActivity() {
+    lateinit var fusedLocationClient: FusedLocationProviderClient
+    val LOCATION_PERMISSION_REQUEST_CODE = 1001
     override fun onCreate(savedInstanceState: Bundle?) {
          lateinit var drawerLayout: DrawerLayout
          lateinit var navigationView: NavigationView
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        requestLocationPermission()
+
 
 
 
@@ -58,11 +71,17 @@ class Giris : AppCompatActivity() {
             true
         }
 
+    }
 
 
 
 
-
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
 
