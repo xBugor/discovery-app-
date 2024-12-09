@@ -2,6 +2,7 @@ package com.example.mobileprogramming
 import android.Manifest
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
@@ -26,8 +27,11 @@ class Giris : AppCompatActivity() {
          lateinit var navigationView: NavigationView
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        requestLocationPermission()
-
+        if (hasLocationPermission()) {
+            getUserLocation()
+        } else {
+            requestLocationPermission()
+        }
 
 
 
@@ -73,8 +77,13 @@ class Giris : AppCompatActivity() {
 
     }
 
-
-
+//izin bilgisinin olup olmadığının kontrolü
+    private fun hasLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 //konum bilgisi alma talabi.
     private fun requestLocationPermission() {
         ActivityCompat.requestPermissions(
@@ -84,5 +93,45 @@ class Giris : AppCompatActivity() {
         )
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // İzin verildi, konumu al
+                getUserLocation()
+            } else {
+                // İzin reddedildi
+                Toast.makeText(this, "Konum izni reddedildi!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun getUserLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    Toast.makeText(
+                        this,
+                        "Konum: Lat: $latitude, Lng: $longitude",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Toast.makeText(this, "Konum alınamadı.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Konum alırken bir hata oluştu.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 }
