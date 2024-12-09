@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navmenu"
+        android:id="@+id/Eposta"
         android:title="HESAP ADI "/>
 
 
