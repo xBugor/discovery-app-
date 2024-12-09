@@ -75,7 +75,7 @@ class Giris : AppCompatActivity() {
 
 
 
-
+//konum bilgisi alma talabi.
     private fun requestLocationPermission() {
         ActivityCompat.requestPermissions(
             this,
