@@ -30,6 +30,7 @@ class Giris : AppCompatActivity() {
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
 
+
         menubutton.setOnClickListener(){
             drawerLayout.open()
         }
@@ -56,6 +57,10 @@ class Giris : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+
+
+
+
 
 
     }
