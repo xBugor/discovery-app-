@@ -16,6 +16,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import android.location.Location
+import android.widget.TextView
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -25,6 +26,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Giris : AppCompatActivity() {
+    data class EventDetails(
+        val name: String,
+        val date: String,
+        val url: String
+    )
+    val eventList = mutableListOf<EventDetails>()
+
     data class EventResponse(
         val _embedded: Embedded?
     )
@@ -47,6 +55,8 @@ class Giris : AppCompatActivity() {
         val localDate: String
     )
     fun fetchEvents() {
+
+
         val apiKey = "vmgAK287ultGS5QONMoayZQ0M8iex7Q8"
         val call = service.getEvents(apiKey, city = "Istanbul")
 
@@ -57,13 +67,31 @@ class Giris : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     val events = response.body()?._embedded?.events
-                    events?.forEach { event ->
-                        println("Event Name: ${event.name}")
-                        println("Event Date: ${event.dates.start.localDate}")
-                        println("Event URL: ${event.url}")
 
+                    events?.forEach { event ->
+                        // Her bir etkinliği EventDetails nesnesi olarak listeye ekliyoruz
+                        val eventDetails = EventDetails(
+                            name = event.name,
+                            date = event.dates.start.localDate,
+                            url = event.url
+                        )
+                        eventList.add(eventDetails)  // Listeye ekleme
+
+                        // Bilgileri ekrana yazdırıyoruz (isteğe bağlı)
+                        println("Event Name: ${eventDetails.name}")
+                        println("Event Date: ${eventDetails.date}")
+                        println("Event URL: ${eventDetails.url}")
                     }
-                } else {
+                    println("Bidaha")
+                    println("All events: $eventList")
+                    println("deiyom")
+                    println(eventList[0])
+
+
+
+                }
+
+                else {
                     println("Error: ${response.code()}")
                 }
             }
@@ -106,6 +134,7 @@ class Giris : AppCompatActivity() {
             requestLocationPermission()
         }
         fetchEvents()
+
 
 
 

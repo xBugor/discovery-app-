@@ -53,7 +53,4 @@
         tools:visibility="visible" />
 
 
-
-
-
 </androidx.drawerlayout.widget.DrawerLayout>
