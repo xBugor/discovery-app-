@@ -5,8 +5,20 @@
         android:id="@+id/Eposta"
         android:title="HESAP ADI "/>
 
+    <item
+        android:id="@+id/Harita"
+        android:icon="@drawable/baseline_map_24"
+        android:title="Harita"
 
 
+        />
+    <item
+        android:id="@+id/Favoriler"
+        android:icon="@drawable/baseline_favorite_24"
+        android:title="Favoriler"
+
+
+        />
     <item
         android:icon="@drawable/round_contact_support_24"
         android:id="@+id/navgorus"

@@ -16,13 +16,86 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import android.location.Location
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 import com.google.android.material.navigation.NavigationView
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class Giris : AppCompatActivity() {
+    data class EventResponse(
+        val _embedded: Embedded?
+    )
+
+    data class Embedded(
+        val events: List<Event>?
+    )
+
+    data class Event(
+        val name: String,
+        val dates: Dates,
+        val url: String
+    )
+
+    data class Dates(
+        val start: Start
+    )
+
+    data class Start(
+        val localDate: String
+    )
+    fun fetchEvents() {
+        val apiKey = "vmgAK287ultGS5QONMoayZQ0M8iex7Q8"
+        val call = service.getEvents(apiKey, city = "Istanbul")
+
+        call.enqueue(object : retrofit2.Callback<EventResponse> {
+            override fun onResponse(
+                call: retrofit2.Call<EventResponse>,
+                response: retrofit2.Response<EventResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val events = response.body()?._embedded?.events
+                    events?.forEach { event ->
+                        println("Event Name: ${event.name}")
+                        println("Event Date: ${event.dates.start.localDate}")
+                        println("Event URL: ${event.url}")
+
+                    }
+                } else {
+                    println("Error: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: retrofit2.Call<EventResponse>, t: Throwable) {
+                println("Failed to fetch events: ${t.message}")
+            }
+        })
+    }
+
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://app.ticketmaster.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    val service = retrofit.create(TicketmasterService::class.java)
+
+
+    interface TicketmasterService {
+        @GET("discovery/v2/events.json")
+        fun getEvents(
+            @Query("apikey") apiKey: String,
+            @Query("keyword") keyword: String? = null,
+            @Query("city") city: String? = null
+        ): Call<EventResponse>
+    }
+
     lateinit var fusedLocationClient: FusedLocationProviderClient
     val LOCATION_PERMISSION_REQUEST_CODE = 1001
     override fun onCreate(savedInstanceState: Bundle?) {
+
          lateinit var drawerLayout: DrawerLayout
          lateinit var navigationView: NavigationView
 
@@ -32,6 +105,7 @@ class Giris : AppCompatActivity() {
         } else {
             requestLocationPermission()
         }
+        fetchEvents()
 
 
 
