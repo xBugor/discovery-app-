@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,50 +9,61 @@
     android:layout_height="match_parent"
     android:background="@drawable/girisarkaplan"
     android:fitsSystemWindows="true"
-    android:visibility="visible"
     tools:context=".Giris"
-    tools:openDrawer="start"
-    tools:visibility="visible">
+    tools:openDrawer="start">
 
     <include
         layout="@layout/activity_main_content"
         android:visibility="visible"
         tools:visibility="visible" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="412dp"
+        android:layout_height="748dp"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/arama"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+
+
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="681dp"
+            android:background="@drawable/cubuk"
+            android:focusable="false"
+            android:visibility="visible"
+            app:backgroundTint="#000000"
+            app:closeIcon="@drawable/clear"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Etkinlik Arayın..."
+            app:searchHintIcon="@null"
+            app:searchIcon="@drawable/arama"
+            tools:visibility="visible" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/cekmece"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="287dp"
+        android:layout_height="740dp"
         android:layout_gravity="start"
         android:visibility="visible"
+
         app:dividerInsetStart="60dp"
         app:headerLayout="@layout/cekmece"
-
         app:menu="@menu/drawer_elamanlari"
-        tools:visibility="visible" />
+        tools:visibility="visible">
 
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/arama"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="102dp"
-
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="752dp"
-        android:background="@drawable/cubuk"
-
-
-        android:focusable="false"
-        android:visibility="visible"
-        app:backgroundTint="#000000"
-        app:closeIcon="@drawable/clear"
-        app:iconifiedByDefault="false"
-        app:queryHint="Etkinlik Arayın..."
-        app:searchHintIcon="@null"
-        app:searchIcon="@drawable/arama"
-        tools:visibility="visible" />
+    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
