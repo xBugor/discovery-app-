@@ -29,35 +29,53 @@
             android:layout_height="wrap_content"
 
 
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginBottom="681dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="102dp"
+            android:layout_marginEnd="46dp"
             android:background="@drawable/cubuk"
             android:focusable="false"
             android:visibility="visible"
             app:backgroundTint="#000000"
             app:closeIcon="@drawable/clear"
             app:iconifiedByDefault="false"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:queryHint="Etkinlik Arayın..."
             app:searchHintIcon="@null"
             app:searchIcon="@drawable/arama"
-            tools:visibility="visible" />
+            tools:visibility="visible">
+
+        </androidx.appcompat.widget.SearchView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEventList"
+            android:layout_width="404dp"
+            android:layout_height="556dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.564"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.518">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/cekmece"
         android:layout_width="287dp"
         android:layout_height="740dp"
         android:layout_gravity="start"
-        android:visibility="visible"
 
+        android:visibility="visible"
         app:dividerInsetStart="60dp"
         app:headerLayout="@layout/cekmece"
         app:menu="@menu/drawer_elamanlari"
