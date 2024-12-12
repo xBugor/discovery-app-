@@ -118,21 +118,6 @@ class Giris : AppCompatActivity() {
             true
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewEventList)
       recyclerView.layoutManager = LinearLayoutManager(this)
 

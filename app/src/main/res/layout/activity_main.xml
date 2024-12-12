@@ -7,6 +7,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/arkaplan">
 
+    <Button
+        android:id="@+id/sifreunuttum"
+        android:layout_width="136dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="523dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="301dp"
+        android:alpha="0.1"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="139dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="475dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="250dp"
+        android:text="Şifremi unuttum!"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="282dp"

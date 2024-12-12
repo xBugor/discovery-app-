@@ -22,7 +22,7 @@ class KaydolmaEkran : AppCompatActivity() {
 
         setContentView(R.layout.activity_kaydolma_ekran)
         firebase = FirebaseAuth.getInstance()
-        val kayitbuton=findViewById<Button>(R.id.kayitolbuton)
+        val kayitbuton=findViewById<Button>(R.id.sifregonder)
         val mailgir=findViewById<TextInputLayout>(R.id.mailLayout)
         val sifregir=findViewById<TextInputLayout>(R.id.sifrelayout)
         val sifrekontrol=findViewById<TextInputLayout>(R.id.sifredogrulalayout)

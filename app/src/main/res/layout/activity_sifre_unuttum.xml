@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@drawable/arkaplan"
-    tools:context=".KaydolmaEkran">
+    tools:context=".SifreUnuttum">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mailLayout"
@@ -29,76 +30,48 @@
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/sifrelayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
-        app:boxStrokeColor="@color/mavi"
-        app:hintTextColor="@color/mavi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mailLayout"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sifregir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sifre belirleyin"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/sifredogrulalayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
-        app:boxStrokeColor="@color/mavi"
-        app:hintTextColor="@color/mavi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sifrelayout"
-        app:passwordToggleEnabled="true">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/sifredogrula"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Sifreyi Yeniden Girin"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sifregonder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="260dp"
         android:background="@color/mavi"
-        android:text="Kayıt Ol"
+        android:text="Şifre Sıfırla"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifredogrulalayout" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hesabın varsa giriş yap !"
+        android:layout_marginStart="173dp"
+        android:layout_marginTop="592dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="120dp"
+        android:text="Giris Yapın"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifregonder" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/girisgit"
+        android:layout_width="112dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="560dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="97dp"
+        android:alpha="0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -113,5 +86,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

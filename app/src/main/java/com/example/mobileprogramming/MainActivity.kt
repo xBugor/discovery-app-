@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         var callbackManager = CallbackManager.Factory.create();// facebook için maneger
         val fcbkbutton=findViewById<Button>(R.id.fcbklogin)//facebook buton
         val accessToken=AccessToken.getCurrentAccessToken()// facebook token
+        val sifreunuttum=findViewById<Button>(R.id.sifreunuttum)
 
         LoginManager.getInstance().registerCallback(callbackManager,
             object :FacebookCallback<LoginResult>{
@@ -86,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -97,6 +99,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, KaydolmaEkran::class.java)
             startActivity(intent)
         }
+        sifreunuttum.setOnClickListener(){
+            val intent=Intent(this,SifreUnuttum::class.java)
+            startActivity(intent)
+
+        }
+
+
         val giris = findViewById<Button>(R.id.giris)
         val mailgir = findViewById<TextInputLayout>(R.id.mailLayout)
         val sifregir = findViewById<TextInputLayout>(R.id.sifrelayout)
