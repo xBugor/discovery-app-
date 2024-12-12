@@ -16,6 +16,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import android.location.Location
+import android.text.Highlights
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -98,6 +99,10 @@ class Giris : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.Eposta ->{
                     Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
+                }
+                R.id.Harita ->{
+                    val intent = Intent(this, Harita::class.java)
+                    startActivity(intent)
                 }
                 R.id.navgorus ->{
                     Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
