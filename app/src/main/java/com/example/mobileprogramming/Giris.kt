@@ -30,7 +30,7 @@ import okhttp3.Address
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Giris : AppCompatActivity() {
+class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     data class EventDetails(
         val name: String,
         val date: String,
@@ -144,6 +144,7 @@ class Giris : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+        lateinit var eventAdapter: EventAdapter
 
        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewEventList)
       recyclerView.layoutManager = LinearLayoutManager(this)
@@ -151,6 +152,7 @@ class Giris : AppCompatActivity() {
         val adapter = EventAdapter(eventList)
 
       recyclerView.adapter = adapter
+        adapter.setOnItemClickListener(this)
     }
 
     fun fetchEvents() {
@@ -188,6 +190,7 @@ class Giris : AppCompatActivity() {
                             url = event.url
                         )
                         eventList.add(eventDetails)
+
 
                     }
                     // RecyclerView adaptörünü güncelle
@@ -241,5 +244,16 @@ class Giris : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onItemClick(event: Giris.EventDetails) {
+        // Tıklanan öğenin detaylarını DetailActivity'ye gönder
+        val intent = Intent(this, DetayActivitiy::class.java)
+        intent.putExtra("event_name", event.name)
+        intent.putExtra("event_date", event.date)
+        intent.putExtra("event_venue", event.venue)
+        intent.putExtra("event_address", event.address)
+
+        startActivity(intent)
     }
 }
