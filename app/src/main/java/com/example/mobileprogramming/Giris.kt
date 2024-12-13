@@ -24,7 +24,6 @@ import androidx.room.Embedded
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-
 import com.google.android.material.navigation.NavigationView
 import okhttp3.Address
 import retrofit2.Retrofit
@@ -253,6 +252,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         intent.putExtra("event_date", event.date)
         intent.putExtra("event_venue", event.venue)
         intent.putExtra("event_address", event.address)
+        intent.putExtra("event_url",event.url)
 
         startActivity(intent)
     }
