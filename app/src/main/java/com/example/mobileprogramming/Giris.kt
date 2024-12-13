@@ -26,6 +26,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 import com.google.android.material.navigation.NavigationView
+import okhttp3.Address
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -33,7 +34,14 @@ class Giris : AppCompatActivity() {
     data class EventDetails(
         val name: String,
         val date: String,
-        val url: String
+        val url: String,
+        val venue: String,  // Mekan bilgisi
+        val address: String
+    )
+    data class Address(
+        val line1: String?, // Adresin ilk satırı
+        val line2: String?, // Adresin ikinci satırı (opsiyonel)
+        val postalCode: String? // Posta kodu (opsiyonel)
     )
     data class EventResponse(
         val _embedded: Embedded?
@@ -44,8 +52,21 @@ class Giris : AppCompatActivity() {
     data class Event(
         val name: String,
         val dates: Dates,
-        val url: String
+        val url: String,
+        val _embedded: EventEmbedded?
     )
+    data class EventEmbedded(
+        val venues: List<Venue>?
+    )
+    data class Venue(
+        val name: String, // Mekan adı
+        val address: Address?, // Adres bilgisi
+        val city: City? // Şehir bilgisi
+    )
+    data class City(
+        val name: String? // Şehir adı
+    )
+
     data class Dates(
         val start: Start
     )
@@ -90,6 +111,7 @@ class Giris : AppCompatActivity() {
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
         fetchEvents()
+        println("All events: $eventList")
 
 
         menubutton.setOnClickListener(){
@@ -127,6 +149,7 @@ class Giris : AppCompatActivity() {
       recyclerView.layoutManager = LinearLayoutManager(this)
 
         val adapter = EventAdapter(eventList)
+
       recyclerView.adapter = adapter
     }
 
@@ -143,16 +166,34 @@ class Giris : AppCompatActivity() {
                     val events = response.body()?._embedded?.events
 
                     events?.forEach { event ->
+                        // Mekan bilgilerini al
+                        val venue = event._embedded?.venues?.firstOrNull()
+                        val venueName = venue?.name ?: "Unknown Venue"
+                        val venueAddress = venue?.address?.line1 ?: "Address not available"
+                        val cityName = venue?.city?.name ?: "City not available"
+
+                        // Adres bilgisini düzenle
+                        val fullAddress = if (venueAddress != "Address not available") {
+                            "$venueAddress, $cityName"
+                        } else {
+                            cityName
+                        }
+
+                        // Etkinlik bilgilerini listeye ekle
                         val eventDetails = EventDetails(
                             name = event.name,
                             date = event.dates.start.localDate,
+                            venue = venueName,
+                            address = fullAddress,
                             url = event.url
                         )
                         eventList.add(eventDetails)
-                    }
 
-                    // Adapteri yeniden düzenleyip güncelle
-                   findViewById<RecyclerView>(R.id.recyclerViewEventList).adapter?.notifyDataSetChanged()
+                    }
+                    // RecyclerView adaptörünü güncelle
+                    findViewById<RecyclerView>(R.id.recyclerViewEventList).adapter?.notifyDataSetChanged()
+
+
 
                 } else {
                     println("Error: ${response.code()}")

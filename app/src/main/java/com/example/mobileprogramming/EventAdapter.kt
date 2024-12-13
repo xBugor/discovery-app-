@@ -11,7 +11,8 @@ class EventAdapter(private val eventList: List<Giris.EventDetails>) : RecyclerVi
     class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val eventName: TextView = itemView.findViewById(R.id.eventName)
         val eventDate: TextView = itemView.findViewById(R.id.eventDate)
-        val eventUrl: TextView = itemView.findViewById(R.id.eventUrl)
+        val eventmekan:TextView=itemView.findViewById(R.id.venue)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
@@ -23,7 +24,7 @@ class EventAdapter(private val eventList: List<Giris.EventDetails>) : RecyclerVi
         val currentEvent = eventList[position]
         holder.eventName.text = currentEvent.name
         holder.eventDate.text = currentEvent.date
-        holder.eventUrl.text = currentEvent.url
+        holder.eventmekan.text=currentEvent.venue
     }
 
     override fun getItemCount() = eventList.size
