@@ -7,14 +7,24 @@ import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
 
 class DetayActivitiy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        data class EventData(
+            val eventName: String,
+            val eventDate: String,
+            val eventVenue: String,
+            val eventAddress: String,
+            val eventImage: String
+        )
         lateinit var webView: WebView
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,12 +35,8 @@ class DetayActivitiy : AppCompatActivity() {
         val textViewVenue = findViewById<TextView>(R.id.eventVenueDetail)
         val textViewAdress = findViewById<TextView>(R.id.eventaddress)
         val buttonOpenUrl = findViewById<Button>(R.id.buybutton)
+        val favoriler = findViewById<Button>(R.id.favorilerbutonu)
         val imageView: ImageView = findViewById(R.id.eventDetailImage)
-
-
-
-
-
 
         // Intent'ten gelen verileri alma
         val eventName = intent.getStringExtra("event_name")
@@ -54,6 +60,31 @@ class DetayActivitiy : AppCompatActivity() {
         textViewDate.text = eventDate ?: "No Date"
         textViewVenue.text = eventVenue ?: "No Venue"
         textViewAdress.text = eventaddress ?: "no adress"
+        val database = FirebaseDatabase.getInstance()
+        val favoritesRef = database.reference.child("favorites")
+        favoriler.setOnClickListener {
+            val eventData = EventData(
+                eventName ?: "No Name",
+                eventDate ?: "No Date",
+                eventVenue ?: "No Venue",
+                eventaddress ?: "No Address",
+                eventImage ?: ""
+            )
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val userFavoritesRef = favoritesRef.child(userId)
+            userFavoritesRef.push().setValue(eventData)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Etkinlik favorilere eklendi!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Favorilere ekleme başarısız!", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

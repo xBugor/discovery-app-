@@ -136,6 +136,10 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                     val intent = Intent(this, Harita::class.java)
                     startActivity(intent)
                 }
+                R.id.Favoriler ->{
+                    val intent = Intent(this, FavorilerActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.navgorus ->{
                     Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 }
