@@ -19,6 +19,9 @@
         tools:ignore="ManifestMerger"
         tools:targetApi="31">
         <activity
+            android:name=".IsimSoyisimActivity"
+            android:exported="false" />
+        <activity
             android:name=".FavorilerActivity"
             android:exported="false" />
         <activity

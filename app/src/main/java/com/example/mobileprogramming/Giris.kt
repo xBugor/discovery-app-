@@ -17,6 +17,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import android.location.Location
 import android.text.Highlights
+import android.util.Log
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,11 +26,14 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import io.ktor.http.ContentType// bu
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
+    var kullaniciadi="bb"
     data class EventDetails(
         val id: String,             // Etkinlik ID'si
         val name: String,
@@ -104,7 +108,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     val LOCATION_PERMISSION_REQUEST_CODE = 1001
     lateinit var drawerLayout: DrawerLayout
     lateinit var navigationView: NavigationView
-
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val userId = currentUser?.uid
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_giris)
@@ -115,6 +120,24 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
             getUserLocation()
         } else {
             requestLocationPermission()
+        }
+        val database = FirebaseDatabase.getInstance()
+        val userRef = database.getReference("Users").child(userId.toString())
+        userRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Veri başarıyla alındı
+                val dataSnapshot = task.result
+                val isimSoyisim = dataSnapshot?.child("isimSoyisim")?.value as? String
+                val email = dataSnapshot?.child("email")?.value as? String
+                kullaniciadi=isimSoyisim.toString()
+
+                // Veriyi kullanabilirsiniz
+                Log.d("Firebase", "İsim Soyisim: $isimSoyisim, Email: $email")
+                println(isimSoyisim)
+            } else {
+                // Hata durumunda yapılacak işlemler
+                Log.e("Firebase", "Veri çekilemedi: ${task.exception?.message}")
+            }
         }
 
         drawerLayout=findViewById(R.id.main)
@@ -130,7 +153,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.Eposta ->{
-                    Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
+
                 }
                 R.id.Harita ->{
                     val intent = Intent(this, Harita::class.java)
