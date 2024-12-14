@@ -5,11 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.squareup.picasso.Picasso
 
 class DetayActivitiy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,10 @@ class DetayActivitiy : AppCompatActivity() {
         val textViewVenue = findViewById<TextView>(R.id.eventVenueDetail)
         val textViewAdress = findViewById<TextView>(R.id.eventaddress)
         val buttonOpenUrl = findViewById<Button>(R.id.buybutton)
+        val imageView: ImageView = findViewById(R.id.eventDetailImage)
+
+
+
 
 
 
@@ -32,11 +38,16 @@ class DetayActivitiy : AppCompatActivity() {
         val eventVenue = intent.getStringExtra("event_venue")
         val eventaddress = intent.getStringExtra("event_address")
         val url = intent.getStringExtra("event_url")
+        val eventImage = intent.getStringExtra("eventImage")
+
         buttonOpenUrl.setOnClickListener {
             val url = url// Açmak istediğiniz URL
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)
+        }
+        if (eventImage != null) {
+            Picasso.get().load(eventImage).into(imageView)
         }
         // TextView'lere verileri atayın
         textViewName.text = eventName ?: "No Name"

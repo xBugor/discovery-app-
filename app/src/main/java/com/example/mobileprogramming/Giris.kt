@@ -25,17 +25,20 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.google.android.material.navigation.NavigationView
-import okhttp3.Address
+import io.ktor.http.ContentType// bu
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     data class EventDetails(
+        val id: String,             // Etkinlik ID'si
         val name: String,
         val date: String,
         val url: String,
         val venue: String,  // Mekan bilgisi
-        val address: String
+        val address: String,
+        val imageUrl: String?      // Etkinlik resmi
+
     )
     data class Address(
         val line1: String?, // Adresin ilk satırı
@@ -49,10 +52,18 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val events: List<Event>?
     )
     data class Event(
+        val id: String,               // Etkinlik ID'si
+
         val name: String,
         val dates: Dates,
         val url: String,
-        val _embedded: EventEmbedded?
+        val _embedded: EventEmbedded?,
+        val images: List<Image>?      // Resim bilgisi bide bu
+
+
+    )
+    data class Image(
+        val url: String               // Etkinlik resminin URL'si
     )
     data class EventEmbedded(
         val venues: List<Venue>?
@@ -172,6 +183,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                         val venueName = venue?.name ?: "Unknown Venue"
                         val venueAddress = venue?.address?.line1 ?: "Address not available"
                         val cityName = venue?.city?.name ?: "City not available"
+                        val imageUrl = event.images?.firstOrNull()?.url
+
 
                         // Adres bilgisini düzenle
                         val fullAddress = if (venueAddress != "Address not available") {
@@ -182,11 +195,14 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
                         // Etkinlik bilgilerini listeye ekle
                         val eventDetails = EventDetails(
+                            id = event.id,
                             name = event.name,
                             date = event.dates.start.localDate,
                             venue = venueName,
                             address = fullAddress,
-                            url = event.url
+                            url = event.url,
+                            imageUrl = imageUrl
+
                         )
                         eventList.add(eventDetails)
 
@@ -253,6 +269,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         intent.putExtra("event_venue", event.venue)
         intent.putExtra("event_address", event.address)
         intent.putExtra("event_url",event.url)
+        intent.putExtra("eventImage",event.imageUrl)
 
         startActivity(intent)
     }
