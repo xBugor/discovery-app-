@@ -131,6 +131,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         }
         val database = FirebaseDatabase.getInstance()
         val userRef = database.getReference("Users").child(userId.toString())
+       val databaseReference = FirebaseDatabase.getInstance().getReference("activities").child("activity1");
+
         userRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 // Veri başarıyla alındı
