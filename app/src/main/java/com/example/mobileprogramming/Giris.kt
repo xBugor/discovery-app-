@@ -33,6 +33,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
+
+
+
     var kullaniciadi="bb"
     data class EventDetails(
         val id: String,             // Etkinlik ID'si
@@ -111,6 +114,11 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
     override fun onCreate(savedInstanceState: Bundle?) {
+        var googledangelenemail = intent.getStringExtra("email")
+         val googledangelenemaad = intent.getStringExtra("name")
+
+
+        //   println(googledangelenemaad)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_giris)
 
@@ -129,11 +137,20 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                 val dataSnapshot = task.result
                 val isimSoyisim = dataSnapshot?.child("isimSoyisim")?.value as? String
                 val email = dataSnapshot?.child("email")?.value as? String
-                kullaniciadi=isimSoyisim.toString()
+
+             var ad=findViewById<TextView>(R.id.adsoyad)
+                var eposta=findViewById<TextView>(R.id.epostacek)
+                if(googledangelenemaad!=null){
+                    ad.text=googledangelenemaad
+                    eposta.text=googledangelenemail
+                }
+                else {
+                    ad.text = isimSoyisim
+                    eposta.text = email
+                }
 
                 // Veriyi kullanabilirsiniz
                 Log.d("Firebase", "İsim Soyisim: $isimSoyisim, Email: $email")
-                println(isimSoyisim)
             } else {
                 // Hata durumunda yapılacak işlemler
                 Log.e("Firebase", "Veri çekilemedi: ${task.exception?.message}")
@@ -152,9 +169,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         }
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.Eposta ->{
 
-                }
+
                 R.id.Harita ->{
                     val intent = Intent(this, Harita::class.java)
                     startActivity(intent)

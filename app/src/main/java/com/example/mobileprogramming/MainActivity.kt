@@ -6,6 +6,7 @@ import android.content.SyncRequest
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Im
 import android.provider.ContactsContract.Contacts.Photo
+import android.util.Log
 import android.view.inputmethod.InputBinding
 import android.widget.Button
 import android.widget.ImageButton
@@ -29,6 +30,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
@@ -207,6 +209,7 @@ class MainActivity : AppCompatActivity() {
 
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 sonucfonksiyon(task)
+
             }
         }
 
@@ -231,8 +234,8 @@ class MainActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebase.signInWithCredential(credential).addOnCompleteListener { //Firebase üzerinde oturum açılır.
             if (it.isSuccessful) {
-                val intent: Intent = Intent(this, Giris::class.java)
-                intent.putExtra("email", account.email)//verilerigönder
+                val intent = Intent(this, Giris::class.java)
+                intent.putExtra("email", account.email.toString())//verilerigönder
                 intent.putExtra("name", account.displayName)//verilerigönder
                 startActivity(intent)
             } else {
@@ -241,6 +244,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
 
 
