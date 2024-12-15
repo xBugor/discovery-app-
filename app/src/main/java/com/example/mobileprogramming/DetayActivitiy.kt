@@ -1,6 +1,7 @@
 package com.example.mobileprogramming
 
 import android.content.Intent
+import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -64,6 +66,8 @@ class DetayActivitiy : AppCompatActivity() {
         val commentInput = findViewById<EditText>(R.id.etComment)
         val commentList = findViewById<RecyclerView>(R.id.commentList)
         val imageView: ImageView = findViewById(R.id.eventDetailImage)
+        val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
+
 
         // Intent'ten gelen verileri alma
         val eventName = intent.getStringExtra("event_name")
@@ -92,6 +96,8 @@ class DetayActivitiy : AppCompatActivity() {
         val database = FirebaseDatabase.getInstance()
         val favoritesRef = database.reference.child("favorites")
         val commentsRef = database.reference.child("comments").child(eventName ?: "UnknownEvent")
+        val ratingsRef = database.reference.child("ratings").child(eventName ?: "UnknownEvent")
+
 
         favoriler.setOnClickListener {
             val eventData = EventData(
@@ -172,6 +178,21 @@ class DetayActivitiy : AppCompatActivity() {
                         .addOnFailureListener {
                             Toast.makeText(this, "Yorum gönderilemedi!", Toast.LENGTH_SHORT).show()
                         }
+                }
+                val rating = ratingBar.rating.toInt() // Kullanıcının seçtiği puan
+                if (rating > 0) {
+                    val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+
+                    // Rating'i Firebase'e gönder
+                    ratingsRef.child(userId).setValue(rating)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Puanlama başarılı!", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Puanlama başarısız!", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    Toast.makeText(this, "Lütfen bir puan seçin!", Toast.LENGTH_SHORT).show()
                 }
 
 
