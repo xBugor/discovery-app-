@@ -233,6 +233,27 @@ class DetayActivitiy : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val averageRatingText = findViewById<TextView>(R.id.averageRatingText)
+
+        ratingsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var totalRating = 0
+                var count = 0
+
+                for (ratingSnapshot in snapshot.children) {
+                    val rating = ratingSnapshot.getValue(Int::class.java) ?: 0
+                    totalRating += rating
+                    count++
+                }
+
+                val averageRating = if (count > 0) totalRating.toFloat() / count else 0f
+                averageRatingText.text = "Ortalama Puan: %.1f".format(averageRating)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("Firebase", "Puanlama verisi okunamadı.", error.toException())
+            }
+        })
     }
 
     // CommentData'dan CommentItem'a dönüşüm fonksiyonu
