@@ -164,8 +164,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/lvComments"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/commentList"
         android:layout_width="409dp"
         android:layout_height="162dp"
         android:layout_marginTop="569dp"
