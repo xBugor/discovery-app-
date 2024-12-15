@@ -233,6 +233,8 @@ class DetayActivitiy : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //rating ortalaması heseaplat.
         val averageRatingText = findViewById<TextView>(R.id.averageRatingText)
 
         ratingsRef.addValueEventListener(object : ValueEventListener {

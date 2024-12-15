@@ -205,7 +205,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
         val adapter = EventAdapter(eventList)
 
-      recyclerView.adapter = adapter
+         recyclerView.adapter = adapter
         adapter.setOnItemClickListener(this)
     }
 
