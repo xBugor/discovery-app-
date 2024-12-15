@@ -163,7 +163,6 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
         fetchEvents()
-        println("All events: $eventList")
 
 
         menubutton.setOnClickListener(){

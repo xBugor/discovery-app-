@@ -3,6 +3,7 @@ package com.example.mobileprogramming
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
@@ -33,12 +34,14 @@ class DetayActivitiy : AppCompatActivity() {
     )
 
     data class CommentData(
+        val username: String = "",
         val userId: String = "", // Varsayılan değer ekliyoruz
         val comment: String = "", // Varsayılan değer ekliyoruz
         val timestamp: Long = 0 // Varsayılan değer ekliyoruz
     )
 
     data class CommentItemInActivity(
+        val username: String,
         val userId: String,
         val comment: String,
         val timestamp: Long
@@ -99,6 +102,7 @@ class DetayActivitiy : AppCompatActivity() {
                 eventImage ?: ""
             )
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val username = FirebaseAuth.getInstance().currentUser?.displayName ?: return@setOnClickListener
             val userFavoritesRef = favoritesRef.child(userId)
             userFavoritesRef.push().setValue(eventData)
                 .addOnSuccessListener {
@@ -108,22 +112,71 @@ class DetayActivitiy : AppCompatActivity() {
                     Toast.makeText(this, "Favorilere ekleme başarısız!", Toast.LENGTH_SHORT).show()
                 }
         }
-
         // Yorum gönderme
         submitCommentButton.setOnClickListener {
             val commentText = commentInput.text.toString().trim()
             if (commentText.isNotEmpty()) {
+                println("dene")
                 val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
-                val commentData = CommentData(userId, commentText, System.currentTimeMillis())
+                var username: String = FirebaseAuth.getInstance().currentUser?.displayName ?: ""
 
-                commentsRef.push().setValue(commentData)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Yorum gönderildi!", Toast.LENGTH_SHORT).show()
-                        commentInput.text.clear()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Yorum gönderilemedi!", Toast.LENGTH_SHORT).show()
-                    }
+                if (username.isEmpty()) {
+                    val database = FirebaseDatabase.getInstance()
+                    println("dene1")
+
+                    val userRef = database.getReference("Users").child(userId)//bu hatayı bulmak için 4 saat uğraştım
+
+                    userRef.get()
+                        .addOnSuccessListener { snapshot ->
+                            if (snapshot.exists()) {
+                                // Kullanıcının isimSoyisim bilgisini alıyoruz
+                                username = snapshot.child("isimSoyisim").getValue(String::class.java) ?: "Kullanıcı Adı" // Varsayılan değer olarak "Kullanıcı Adı" eklenebilir
+                                println(username)
+
+                                // Yorum verisini gönder
+                                val commentData = CommentData(
+                                    username,
+                                    userId,
+                                    commentText,
+                                    System.currentTimeMillis()
+                                )
+                                commentsRef.push().setValue(commentData)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Yorum gönderildi!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        commentInput.text.clear()
+                                    }
+                                    .addOnFailureListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Yorum gönderilemedi!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("RealtimeDB", "Hata oluştu: ", e)
+                        }
+                }
+                else{
+                    val commentData = CommentData(username, userId, commentText, System.currentTimeMillis())
+                    commentsRef.push().setValue(commentData)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Yorum gönderildi!", Toast.LENGTH_SHORT).show()
+                            commentInput.text.clear()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Yorum gönderilemedi!", Toast.LENGTH_SHORT).show()
+                        }
+                }
+
+
+
+
             } else {
                 Toast.makeText(this, "Yorum boş olamaz!", Toast.LENGTH_SHORT).show()
             }
@@ -164,6 +217,7 @@ class DetayActivitiy : AppCompatActivity() {
     // CommentData'dan CommentItem'a dönüşüm fonksiyonu
     fun CommentData.toCommentItem(): CommentItem {
         return CommentItem(
+            username=this.username,
             userId = this.userId,
             comment = this.comment,
             timestamp = this.timestamp

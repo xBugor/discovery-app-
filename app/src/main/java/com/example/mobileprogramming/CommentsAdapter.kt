@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-data class CommentItem(val userId: String, val comment: String, val timestamp: Long)
+data class CommentItem(val userId: String,val username: String ,val comment: String, val timestamp: Long)
 
 class CommentsAdapter(private val comments: MutableList<CommentItem>) : RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
 
@@ -26,9 +26,10 @@ class CommentsAdapter(private val comments: MutableList<CommentItem>) : Recycler
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
+        println("abunun içinde")
+        println(comment.username)
 
-
-        holder.userTextView.text = comment.userId // Firebase'den kullanıcı adı alınabilir
+        holder.userTextView.text = comment.username // Firebase'den kullanıcı adı alınabilir
         holder.commentTextView.text = comment.comment
         holder.timestampTextView.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(
             Date(comment.timestamp)
