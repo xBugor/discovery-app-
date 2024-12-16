@@ -37,7 +37,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
 
 
-    var kullaniciadi="bb"
+    var kullaniciadi="bb"//başlatmak için
     data class EventDetails(
         val id: String,             // Etkinlik ID'si
         val name: String,
@@ -45,7 +45,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val url: String,
         val venue: String,  // Mekan bilgisi
         val address: String,
-        val imageUrl: String?      // Etkinlik resmi
+        val imageUrl: String? // Etkinlik resmi
 
     )
     data class Address(
@@ -61,7 +61,6 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     )
     data class Event(
         val id: String,               // Etkinlik ID'si
-
         val name: String,
         val dates: Dates,
         val url: String,
@@ -165,7 +164,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         navigationView=findViewById(R.id.cekmece)
         fetchEvents()
 
-
+// ARAMA YAPMA
         val searchView = findViewById<SearchView>(R.id.arama)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
