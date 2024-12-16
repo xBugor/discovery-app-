@@ -67,6 +67,7 @@ class DetayActivitiy : AppCompatActivity() {
         val commentList = findViewById<RecyclerView>(R.id.commentList)
         val imageView: ImageView = findViewById(R.id.eventDetailImage)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
+        val harita=findViewById<Button>(R.id.harita)
 
 
         // Intent'ten gelen verileri alma
@@ -76,6 +77,14 @@ class DetayActivitiy : AppCompatActivity() {
         val eventaddress = intent.getStringExtra("event_address")
         val url = intent.getStringExtra("event_url")
         val eventImage = intent.getStringExtra("eventImage")
+
+        harita.setOnClickListener {
+            val intent = Intent(this, Harita::class.java)
+            intent.putExtra("event_address", eventaddress)
+            intent.putExtra("event_name", eventName) // Adres verisini MapActivity'ye gönderiyoruz
+
+            startActivity(intent)
+        }
 
         buttonOpenUrl.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)

@@ -125,6 +125,25 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Favorilere ekle" />
 
+
+    <Button
+        android:id="@+id/harita"
+        android:layout_width="112dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginTop="358dp"
+        android:layout_marginEnd="132dp"
+        android:layout_marginBottom="334dp"
+        android:backgroundTint="#2196F3"
+        android:text="Favorilere ekle"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Yol tarifi" />
+
     <ImageView
         android:id="@+id/eventDetailImage"
         android:layout_width="378dp"

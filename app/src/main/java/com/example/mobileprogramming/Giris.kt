@@ -373,6 +373,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         intent.putExtra("event_url",event.url)
         intent.putExtra("eventImage",event.imageUrl)
 
+
         startActivity(intent)
     }
     private fun filterEvents(query: String?,selectedCategory: String) {

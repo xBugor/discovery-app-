@@ -1,5 +1,6 @@
 package com.example.mobileprogramming
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -33,17 +34,34 @@ class Harita : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        // Harita nesnesinin null olmadığını kontrol edin
-        map?.let { googleMap ->
-            val location = LatLng(41.0082, 28.9784) // Örnek konum: İstanbul
-            googleMap.addMarker(
-                MarkerOptions()
-                    .position(location)
-                    .title("Marker in Istanbul")
-            )
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
-        } ?: run {
-            // Eğer harita null ise bir hata mesajı veya log eklenebilir
-            Log.e("Harita", "Harita yüklenemedi.")
+        val eventAddress = intent.getStringExtra("event_address") ?: ""
+        val eventname = intent.getStringExtra("event_name") ?: ""
+        val geocoder = Geocoder(this)
+        val addresses = geocoder.getFromLocationName(eventAddress, 1)
+
+
+        if (addresses != null && addresses.isNotEmpty()) {
+            val address = addresses[0]
+            val latLng = LatLng(address.latitude, address.longitude)
+            map?.let { googleMap ->
+                var location = latLng // Örnek konum: İstanbul
+                googleMap.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title(eventname)
+                )
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
+            } ?: run {
+                // Eğer harita null ise bir hata mesajı veya log eklenebilir
+                Log.e("Harita", "Harita yüklenemedi.")
+            }
         }
+
+
+
+
+
+
+        // Harita nesnesinin null olmadığını kontrol edin
+
     }}
