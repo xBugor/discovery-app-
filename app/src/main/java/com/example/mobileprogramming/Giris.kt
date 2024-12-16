@@ -242,7 +242,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
                 }
                 R.id.navcikis ->{
-                    Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Çıkış Yapıldı", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
 
                 }
             }

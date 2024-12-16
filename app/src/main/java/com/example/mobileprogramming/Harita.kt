@@ -94,6 +94,7 @@ class Harita : AppCompatActivity(), OnMapReadyCallback {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
+            //BU KISMI OTOMATİK EKLEDİ....
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
