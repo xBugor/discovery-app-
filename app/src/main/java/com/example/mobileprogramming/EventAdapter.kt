@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EventAdapter(private val eventList: List<Giris.EventDetails>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class EventAdapter(private val eventList: MutableList<Giris.EventDetails>) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     interface OnItemClickListener {
         fun onItemClick(event: Giris.EventDetails)
@@ -43,6 +43,11 @@ class EventAdapter(private val eventList: List<Giris.EventDetails>) : RecyclerVi
         holder.eventDate.text = currentEvent.date
         holder.eventmekan.text = currentEvent.venue
         holder.bind(currentEvent, listener)  // Burada bind fonksiyonunu çağırıyoruz.
+    }
+    fun updateData(newEventList: List<Giris.EventDetails>) {
+        eventList.clear()
+        eventList.addAll(newEventList)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = eventList.size

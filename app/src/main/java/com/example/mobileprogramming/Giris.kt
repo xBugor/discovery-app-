@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task
 import android.location.Location
 import android.text.Highlights
 import android.util.Log
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -163,6 +164,22 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
         fetchEvents()
+
+
+        val searchView = findViewById<SearchView>(R.id.arama)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterEvents(newText)
+                return true
+            }
+        })
+
+
+
 
 
         menubutton.setOnClickListener(){
@@ -317,4 +334,23 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
         startActivity(intent)
     }
-}
+    private fun filterEvents(query: String?) {
+        val filteredList = mutableListOf<EventDetails>()
+
+        // Eğer arama metni boş değilse, etkinlikleri filtrele
+        if (!query.isNullOrEmpty()) {
+            eventList.forEach { event ->
+                // Etkinlik ismi ya da mekanı, arama metniyle eşleşiyorsa
+                if (event.name.contains(query, ignoreCase = true) || event.venue.contains(query, ignoreCase = true)) {
+                    filteredList.add(event)
+                }
+            }
+        } else {
+            // Eğer arama metni boşsa, tüm etkinlikleri göster
+            filteredList.addAll(eventList)
+        }
+
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerViewEventList)
+        val adapter = recyclerView.adapter as EventAdapter
+        adapter.updateData(filteredList)
+    }}

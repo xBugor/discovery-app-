@@ -23,7 +23,7 @@
         android:visibility="visible"
         tools:visibility="visible">
 
-        <androidx.appcompat.widget.SearchView
+        <SearchView
             android:id="@+id/arama"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,6 @@
             android:background="@drawable/cubuk"
             android:focusable="false"
             android:visibility="visible"
-            app:backgroundTint="#000000"
             app:closeIcon="@drawable/clear"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +45,7 @@
             app:searchIcon="@drawable/arama"
             tools:visibility="visible">
 
-        </androidx.appcompat.widget.SearchView>
+        </SearchView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewEventList"
