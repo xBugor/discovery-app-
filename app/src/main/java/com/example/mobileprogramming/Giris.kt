@@ -264,7 +264,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
     fun fetchEvents() {
         val apiKey = "vmgAK287ultGS5QONMoayZQ0M8iex7Q8"
-        val call = service.getEvents(apiKey, city = "Istanbul")
+        val call = service.getEvents(apiKey, city = "Antalya")
 
         call.enqueue(object : retrofit2.Callback<EventResponse> {
             override fun onResponse(

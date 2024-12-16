@@ -65,7 +65,8 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("com.google.firebase:firebase-database:21.0.0")
     implementation ("com.google.firebase:firebase-auth:21.0.3")
-
+    implementation ("com.google.android.gms:play-services-maps:18.0.2") // For Google Maps SDK
+    implementation ("com.google.maps:google-maps-services:0.18.0") // For Directions API
 
 
 
