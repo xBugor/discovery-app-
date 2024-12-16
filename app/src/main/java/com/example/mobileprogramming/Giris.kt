@@ -3,6 +3,7 @@ import android.Manifest
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
@@ -186,6 +187,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedCategory = categories[position]
+                val textView = view as? TextView
+
+                textView?.setTextColor(Color.BLACK)
                 filterEvents(null, selectedCategory)
             }
 
