@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task
 import android.location.Location
 import android.text.Highlights
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Spinner
@@ -181,6 +183,17 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
         fetchEvents()
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedCategory = categories[position]
+                filterEvents(null, selectedCategory)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Hiçbir kategori seçilmediğinde tüm etkinlikleri göster
+                filterEvents(null, "Tümü")
+            }
+        }
 
 // ARAMA YAPMA
         val searchView = findViewById<SearchView>(R.id.arama)
@@ -190,7 +203,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterEvents(newText)
+                val selectedCategory = spinner.selectedItem as String
+
+                filterEvents(newText,selectedCategory)
                 return true
             }
         })
@@ -356,9 +371,16 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
         startActivity(intent)
     }
-    private fun filterEvents(query: String?) {
+    private fun filterEvents(query: String?,selectedCategory: String) {
         val filteredList = mutableListOf<EventDetails>()
+        eventList.forEach { event ->
+            val matchesQuery = query.isNullOrEmpty() || event.name.contains(query, ignoreCase = true) || event.venue.contains(query, ignoreCase = true)
+            val matchesCategory = selectedCategory == "Tümü" || event.category.equals(selectedCategory, ignoreCase = true)
 
+            if (matchesQuery && matchesCategory) {
+                filteredList.add(event)
+            }
+        }
         // Eğer arama metni boş değilse, etkinlikleri filtrele
         if (!query.isNullOrEmpty()) {
             eventList.forEach { event ->
