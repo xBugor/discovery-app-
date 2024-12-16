@@ -18,7 +18,9 @@ import com.google.android.gms.tasks.Task
 import android.location.Location
 import android.text.Highlights
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.SearchView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -130,6 +132,13 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         //   println(googledangelenemaad)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_giris)
+        val spinner = findViewById<Spinner>(R.id.categorySpinner)
+        val categories = listOf("Tümü", "Music", "Sports", "Arts & Theatre", "Film", "Miscellaneous")
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = spinnerAdapter
+
+
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)

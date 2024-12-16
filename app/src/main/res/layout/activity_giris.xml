@@ -47,20 +47,32 @@
 
         </SearchView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewEventList"
-            android:layout_width="404dp"
-            android:layout_height="556dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="4dp"
+        <Spinner
+            android:id="@+id/categorySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="289dp"
+            android:layout_marginTop="158dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="549dp"
+            android:spinnerMode="dropdown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.564"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.518">
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEventList"
+            android:layout_width="405dp"
+            android:layout_height="541dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="187dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 
