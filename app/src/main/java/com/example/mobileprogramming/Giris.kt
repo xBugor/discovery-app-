@@ -45,7 +45,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val url: String,
         val venue: String,  // Mekan bilgisi
         val address: String,
-        val imageUrl: String? // Etkinlik resmi
+        val imageUrl: String?, // Etkinlik resmi
+        val category: String?
+
 
     )
     data class Address(
@@ -65,9 +67,16 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val dates: Dates,
         val url: String,
         val _embedded: EventEmbedded?,
-        val images: List<Image>?      // Resim bilgisi bide bu
+        val images: List<Image>?, // Resim bilgisi bide bu
+        val classifications: List<Classification>?
 
 
+    )
+    data class Classification(
+        val segment: Segment?
+    )
+    data class Segment(
+        val name: String //kategori
     )
     data class Image(
         val url: String               // Etkinlik resminin URL'si
@@ -252,6 +261,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                         } else {
                             cityName
                         }
+                        val category = event.classifications?.firstOrNull()?.segment?.name ?: "Uncategorized"
+
 
                         // Etkinlik bilgilerini listeye ekle
                         val eventDetails = EventDetails(
@@ -261,10 +272,13 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                             venue = venueName,
                             address = fullAddress,
                             url = event.url,
-                            imageUrl = imageUrl
+                            imageUrl = imageUrl,
+                            category = category
+
 
                         )
                         eventList.add(eventDetails)
+                        println(eventList[0])
 
 
                     }
