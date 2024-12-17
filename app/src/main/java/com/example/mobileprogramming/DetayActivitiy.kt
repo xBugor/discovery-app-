@@ -1,9 +1,12 @@
 package com.example.mobileprogramming
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.Rating
 import android.net.Uri
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.util.Log
 import android.webkit.WebView
 import android.widget.Button
@@ -14,6 +17,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +29,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import android.content.ContentValues
+import android.provider.CalendarContract.Events
+import java.util.*
+
+import java.util.Locale
 
 class DetayActivitiy : AppCompatActivity() {
 
@@ -80,6 +91,8 @@ class DetayActivitiy : AppCompatActivity() {
         val url = intent.getStringExtra("event_url")
         val eventImage = intent.getStringExtra("eventImage")
         val eventtime = intent.getStringExtra("event_time")
+        val addToCalendarButton = findViewById<Button>(R.id.addToCalendarButton)
+
 
 
 
@@ -155,6 +168,17 @@ class DetayActivitiy : AppCompatActivity() {
                     Toast.makeText(this, "Favorilere ekleme başarısız!", Toast.LENGTH_SHORT).show()
                 }
         }
+        addToCalendarButton.setOnClickListener {
+            if (checkCalendarPermission()) {
+                addEventToCalendar(eventName, eventDate, eventtime, eventaddress)
+            } else {
+                requestCalendarPermission()
+            }
+        }
+
+
+
+
         // Yorum gönderme
         submitCommentButton.setOnClickListener {
             val commentText = commentInput.text.toString().trim()
@@ -304,4 +328,60 @@ class DetayActivitiy : AppCompatActivity() {
             timestamp = this.timestamp
         )
     }
+
+  fun convertToDateTimeInMillis(date: String?, time: String?): Long {
+        if (date.isNullOrEmpty() || time.isNullOrEmpty()) return System.currentTimeMillis()
+
+        val dateTime = "$date $time" // Tarih ve zamanı birleştir
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+
+        return try {
+            sdf.parse(dateTime)?.time ?: System.currentTimeMillis()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            System.currentTimeMillis()
+        }
+    }
+    private fun checkCalendarPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.WRITE_CALENDAR
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCalendarPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.WRITE_CALENDAR),
+            1001 // Takvim izni isteği için request kodu
+        )
+
+    }
+
+
+    private fun addEventToCalendar(eventName: String?, eventDate: String?, eventTime: String?, eventLocation: String?) {
+        val calendar = Calendar.getInstance()
+
+        // Tarih ve saati birleştirip eventin milisaniye cinsinden zamanını alıyoruz
+        val eventMillis = convertToDateTimeInMillis(eventDate, eventTime)
+
+        val values = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, eventMillis)
+            put(CalendarContract.Events.DTEND, eventMillis + 60 * 60 * 1000) // Etkinlik süresini 1 saat olarak ayarlıyoruz
+            put(CalendarContract.Events.TITLE, eventName)
+            put(CalendarContract.Events.DESCRIPTION, "Etkinlik: $eventLocation")
+            put(CalendarContract.Events.EVENT_LOCATION, eventLocation)
+            put(CalendarContract.Events.CALENDAR_ID, 1) // Varsayılan takvim
+            put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().id)
+        }
+
+        val uri: Uri? = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+
+        if (uri != null) {
+            Toast.makeText(this, "Etkinlik takvime eklendi!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Etkinlik takvime eklenemedi!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

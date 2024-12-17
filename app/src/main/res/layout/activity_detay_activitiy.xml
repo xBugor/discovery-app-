@@ -46,16 +46,11 @@
         android:id="@+id/averageRatingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="367dp"
-        android:layout_marginEnd="292dp"
-        android:layout_marginBottom="342dp"
         android:text="Ortalama Puan: -"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="444dp" />
 
     <TextView
         android:id="@+id/eventVenueDetail"
@@ -107,15 +102,16 @@
 
     <Button
         android:id="@+id/buybutton"
-        android:layout_width="104dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="287dp"
-        android:layout_marginTop="401dp"
-        android:layout_marginEnd="26dp"
+        android:layout_width="83dp"
+        android:layout_height="57dp"
 
-        android:layout_marginBottom="270dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="403dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="271dp"
         android:backgroundTint="#2196F3"
         android:text="Satın Al"
+        android:textSize="8sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,13 +120,32 @@
         tools:text="Satın Al" />
 
     <Button
+        android:id="@+id/addToCalendarButton"
+        android:layout_width="101dp"
+        android:layout_height="42dp"
+
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="358dp"
+        android:layout_marginEnd="239dp"
+        android:layout_marginBottom="331dp"
+        android:backgroundTint="#2196F3"
+        android:text="Takvime Ekle"
+        android:textSize="8dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Takvime Ekle" />
+
+    <Button
         android:id="@+id/joinEventButton"
         android:layout_width="101dp"
         android:layout_height="42dp"
 
-        android:layout_marginStart="284dp"
+        android:layout_marginStart="294dp"
         android:layout_marginTop="358dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="331dp"
         android:backgroundTint="#2196F3"
         android:text="Etkinliğe Katıl"
@@ -144,15 +159,15 @@
 
     <Button
         android:id="@+id/favorilerbutonu"
-        android:layout_width="109dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="173dp"
-        android:layout_marginTop="401dp"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="270dp"
+        android:layout_width="83dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="403dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="271dp"
         android:backgroundTint="#2196F3"
         android:text="Favorilere ekle"
-        android:textSize="10sp"
+        android:textSize="7sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,17 +175,16 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Favorilere ekle" />
 
-
     <Button
         android:id="@+id/harita"
-        android:layout_width="112dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="167dp"
+        android:layout_width="101dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="182dp"
         android:layout_marginTop="358dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="334dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="331dp"
         android:backgroundTint="#2196F3"
-        android:text="Favorilere ekle"
+        android:text="Yol tarifi"
         android:textSize="8sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -248,7 +248,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                     startActivity(intent)
                 }
                 R.id.navgorus ->{
-                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Yakında Eklenecek", Toast.LENGTH_SHORT).show()
                 }
                 R.id.navayarlar ->{
                     val intent = Intent(this, Ayarlar::class.java)
