@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.room.common)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.facebook.android:facebook-login:latest.release")
