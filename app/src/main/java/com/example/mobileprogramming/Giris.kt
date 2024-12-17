@@ -51,10 +51,12 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val venue: String,  // Mekan bilgisi
         val address: String,
         val imageUrl: String?, // Etkinlik resmi
-        val category: String?
+        val category: String?,
+        val startTime: String?, // Başlangıç saati
+        val endTime: String?,
 
 
-    )
+        )
     data class Address(
         val line1: String?, // Adresin ilk satırı
         val line2: String?, // Adresin ikinci satırı (opsiyonel)
@@ -99,11 +101,18 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     )
 
     data class Dates(
-        val start: Start
+        val start: Start,
+        val end: End?
+
     )
     data class Start(
-        val localDate: String
+        val localDate: String,
+        val localTime: String?
     )
+    data class End(
+        val localTime: String? // Bitiş saati (opsiyonel)
+    )
+
     val eventList = mutableListOf<EventDetails>()
 
     val retrofit = Retrofit.Builder()
@@ -292,6 +301,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                             cityName
                         }
                         val category = event.classifications?.firstOrNull()?.segment?.name ?: "Uncategorized"
+                        val startTime = event.dates.start.localTime ?: "Bilinmiyor" // Başlangıç saati
+                        val endTime = event.dates.end?.localTime ?: "Bilinmiyor"
 
 
                         // Etkinlik bilgilerini listeye ekle
@@ -303,7 +314,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                             address = fullAddress,
                             url = event.url,
                             imageUrl = imageUrl,
-                            category = category
+                            category = category,
+                            startTime = startTime,
+                            endTime = endTime,
 
 
                         )

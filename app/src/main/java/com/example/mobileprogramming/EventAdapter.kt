@@ -22,6 +22,7 @@ class EventAdapter(private val eventList: MutableList<Giris.EventDetails>) : Rec
         val eventName: TextView = itemView.findViewById(R.id.eventName)
         val eventDate: TextView = itemView.findViewById(R.id.eventDate)
         val eventmekan: TextView = itemView.findViewById(R.id.venue)
+        val eventTime: TextView = itemView.findViewById(R.id.eventTime)
 
         fun bind(event: Giris.EventDetails, listener: OnItemClickListener?) {
             itemView.setOnClickListener {
@@ -42,6 +43,8 @@ class EventAdapter(private val eventList: MutableList<Giris.EventDetails>) : Rec
         holder.eventName.text = currentEvent.name
         holder.eventDate.text = currentEvent.date
         holder.eventmekan.text = currentEvent.venue
+        holder.eventTime.text = "Saat: ${currentEvent.startTime}" // Saat gösterimi
+
         holder.bind(currentEvent, listener)  // Burada bind fonksiyonunu çağırıyoruz.
     }
     fun updateData(newEventList: List<Giris.EventDetails>) {
