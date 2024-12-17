@@ -238,6 +238,11 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                     val intent = Intent(this, Harita::class.java)
                     startActivity(intent)
                 }
+                R.id.katildiketkinlik ->{
+
+                    val intent = Intent(this, KatildikActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.Favoriler ->{
                     val intent = Intent(this, FavorilerActivity::class.java)
                     startActivity(intent)
@@ -387,6 +392,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         intent.putExtra("event_address", event.address)
         intent.putExtra("event_url",event.url)
         intent.putExtra("eventImage",event.imageUrl)
+        intent.putExtra("event_time",event.startTime)
 
 
         startActivity(intent)

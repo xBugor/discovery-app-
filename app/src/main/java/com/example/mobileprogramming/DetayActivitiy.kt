@@ -60,6 +60,7 @@ class DetayActivitiy : AppCompatActivity() {
         val textViewDate = findViewById<TextView>(R.id.eventDateDetail)
         val textViewVenue = findViewById<TextView>(R.id.eventVenueDetail)
         val textViewAdress = findViewById<TextView>(R.id.eventaddress)
+        val zaman = findViewById<TextView>(R.id.eventime)
         val buttonOpenUrl = findViewById<Button>(R.id.buybutton)
         val favoriler = findViewById<Button>(R.id.favorilerbutonu)
         val submitCommentButton = findViewById<Button>(R.id.btnSubmit)
@@ -68,6 +69,7 @@ class DetayActivitiy : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.eventDetailImage)
         val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         val harita=findViewById<Button>(R.id.harita)
+        val buttonJoinEvent = findViewById<Button>(R.id.joinEventButton)
 
 
         // Intent'ten gelen verileri alma
@@ -77,6 +79,9 @@ class DetayActivitiy : AppCompatActivity() {
         val eventaddress = intent.getStringExtra("event_address")
         val url = intent.getStringExtra("event_url")
         val eventImage = intent.getStringExtra("eventImage")
+        val eventtime = intent.getStringExtra("event_time")
+
+
 
         harita.setOnClickListener {
             val intent = Intent(this, Harita::class.java)
@@ -101,11 +106,34 @@ class DetayActivitiy : AppCompatActivity() {
         textViewDate.text = eventDate ?: "No Date"
         textViewVenue.text = eventVenue ?: "No Venue"
         textViewAdress.text = eventaddress ?: "No Address"
+        zaman.text = eventtime ?: "No Time"
 
         val database = FirebaseDatabase.getInstance()
         val favoritesRef = database.reference.child("favorites")
         val commentsRef = database.reference.child("comments").child(eventName ?: "UnknownEvent")
         val ratingsRef = database.reference.child("ratings").child(eventName ?: "UnknownEvent")
+        val participantsRef = database.reference.child("participants").child(eventName ?: "UnknownEvent")
+
+
+
+        buttonJoinEvent.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
+            val username = FirebaseAuth.getInstance().currentUser?.displayName ?: "Anonim Kullanıcı"
+
+            val participantData = mapOf(
+                "userId" to userId,
+                "username" to username,
+                "joinedAt" to System.currentTimeMillis()
+            )
+
+            participantsRef.child(userId).setValue(participantData)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Etkinliğe katıldınız!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Katılım başarısız!", Toast.LENGTH_SHORT).show()
+                }
+        }
 
 
         favoriler.setOnClickListener {

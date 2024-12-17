@@ -11,6 +11,13 @@
 
         />
     <item
+        android:id="@+id/katildiketkinlik"
+        android:icon="@drawable/baseline_notes_24"
+        android:title="Katıldığım Etkinlikler "
+
+
+        />
+    <item
         android:id="@+id/Favoriler"
         android:icon="@drawable/baseline_favorite_24"
         android:title="Favoriler"
