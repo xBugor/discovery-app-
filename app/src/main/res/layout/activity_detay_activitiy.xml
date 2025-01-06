@@ -10,16 +10,15 @@
 
     <TextView
         android:id="@+id/eventNameDetail"
-        android:layout_width="376dp"
-        android:layout_height="36dp"
+        android:layout_width="356dp"
+        android:layout_height="40dp"
 
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="173dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="522dp"
+        android:layout_marginTop="183dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="623dp"
         android:text="Event Name"
         android:textColor="#2B15D5"
-        android:textSize="34sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,15 +27,16 @@
 
     <TextView
         android:id="@+id/eventDateDetail"
-        android:layout_width="380dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="232dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="458dp"
+        android:layout_width="272dp"
+        android:layout_height="30dp"
+
+        android:layout_marginTop="282dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginBottom="534dp"
+        android:background="@drawable/textview_border"
         android:text="Event Date"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,22 +46,29 @@
         android:id="@+id/averageRatingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="444dp"
+        android:layout_marginEnd="289dp"
+        android:layout_marginBottom="265dp"
         android:text="Ortalama Puan: -"
         android:textColor="#000000"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="444dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/eventVenueDetail"
-        android:layout_width="383dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="420dp"
+        android:layout_width="345dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="312dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="492dp"
+        android:background="@drawable/textview_border"
         android:text="Event Venue"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,36 +76,38 @@
 
     <TextView
         android:id="@+id/eventime"
-        android:layout_width="246dp"
-        android:layout_height="20dp"
+        android:layout_width="252dp"
+        android:layout_height="40dp"
         android:layout_marginTop="212dp"
         android:layout_marginEnd="165dp"
         android:layout_marginBottom="499dp"
+        android:background="@drawable/textview_border"
         android:text="Event time"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
 
 
     <TextView
         android:id="@+id/eventaddress"
         android:layout_width="383dp"
         android:layout_height="55dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="364dp"
+        android:layout_marginTop="354dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="437dp"
+        android:background="@drawable/textview_border"
         android:text="Event Address"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <Button
         android:id="@+id/buybutton"
@@ -115,8 +124,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547"
         tools:text="Satın Al" />
 
     <Button
@@ -134,8 +145,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573"
         tools:text="Takvime Ekle" />
 
     <Button
@@ -153,8 +166,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573"
         tools:text="Satın Al" />
 
     <Button
@@ -171,8 +186,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547"
         tools:text="Favorilere ekle" />
 
     <Button
@@ -189,16 +206,24 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573"
         tools:text="Yol tarifi" />
 
     <ImageView
         android:id="@+id/eventDetailImage"
-        android:layout_width="378dp"
-        android:layout_height="174dp"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="0dp"
+        android:layout_width="415dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_marginBottom="663dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <RatingBar
@@ -228,6 +253,8 @@
         android:foregroundTint="#000000"
         android:hint="Yorumunuzu buraya yazın"
         android:inputType="textMultiLine"
+        android:textColor="#000000"
+        android:textColorLink="#181717"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -253,6 +280,7 @@
         android:layout_marginEnd="2dp"
         android:backgroundTint="#000000"
         android:foregroundTint="#000000"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

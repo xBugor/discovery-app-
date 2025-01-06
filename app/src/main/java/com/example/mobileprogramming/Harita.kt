@@ -112,7 +112,6 @@ class Harita : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun drawRoute(origin: LatLng, destination: LatLng) {
-        // Use the Directions API to get directions
         val context = GeoApiContext.Builder()
             .apiKey("AIzaSyCCNATtaM3SMa-222w-Ttv6Nih_-Dv8NjM") // Add your API Key here
             .build()

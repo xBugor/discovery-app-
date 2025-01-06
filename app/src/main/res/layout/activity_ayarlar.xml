@@ -103,7 +103,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchBildirim"
         android:layout_width="277dp"
         android:layout_height="38dp"
         android:layout_marginTop="166dp"

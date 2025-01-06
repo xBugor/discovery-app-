@@ -1,5 +1,6 @@
 package com.example.mobileprogramming
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +29,17 @@ class CommentsAdapter(private val comments: MutableList<CommentItem>) : Recycler
         val comment = comments[position]
         println("abunun içinde")
         println(comment.username)
+        holder.commentTextView.setTextColor(Color.BLACK);
 
         holder.userTextView.text = comment.username // Firebase'den kullanıcı adı alınabilir
+        holder.userTextView.setTextColor(Color.BLACK);
+
         holder.commentTextView.text = comment.comment
         holder.timestampTextView.text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(
             Date(comment.timestamp)
         )
+        holder.timestampTextView.setTextColor(Color.BLACK);
+
     }
 
     override fun getItemCount(): Int {

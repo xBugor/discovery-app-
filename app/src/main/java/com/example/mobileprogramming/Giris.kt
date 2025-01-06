@@ -280,7 +280,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
     fun fetchEvents() {
         val apiKey = "vmgAK287ultGS5QONMoayZQ0M8iex7Q8"
-        val call = service.getEvents(apiKey, city = "Antalya")
+        val call = service.getEvents(apiKey, city = "Erzurum")
 
         call.enqueue(object : retrofit2.Callback<EventResponse> {
             override fun onResponse(
@@ -360,7 +360,8 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
             LOCATION_PERMISSION_REQUEST_CODE
         )
     }
-
+    //val latitude
+   // val longitude
     private fun getUserLocation() {
         if (ActivityCompat.checkSelfPermission(
                 this,
