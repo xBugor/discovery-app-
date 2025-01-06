@@ -1,9 +1,12 @@
 package com.example.mobileprogramming
 import android.Manifest
-
+import retrofit2.Callback
+import retrofit2.Call
+import retrofit2.Response
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Geocoder
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.Toast
@@ -28,7 +31,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Embedded
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import com.google.android.material.navigation.NavigationView
@@ -37,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase
 import io.ktor.http.ContentType// bu
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
 
@@ -47,7 +50,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val id: String,             // Etkinlik ID'si
         val name: String,
         val date: String,
-        val url: String,
+        val url: String?,
         val venue: String,  // Mekan bilgisi
         val address: String,
         val imageUrl: String?, // Etkinlik resmi
@@ -192,7 +195,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         drawerLayout=findViewById(R.id.main)
         var menubutton=findViewById<ImageButton>(R.id.menu)
         navigationView=findViewById(R.id.cekmece)
-        fetchEvents()
+        getUserLocation ()
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedCategory = categories[position]
@@ -234,10 +237,6 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
             when (menuItem.itemId) {
 
 
-                R.id.Harita ->{
-                    val intent = Intent(this, Harita::class.java)
-                    startActivity(intent)
-                }
                 R.id.katildiketkinlik ->{
 
                     val intent = Intent(this, KatildikActivity::class.java)
@@ -278,39 +277,35 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         adapter.setOnItemClickListener(this)
     }
 
-    fun fetchEvents() {
+    private fun fetchEvents(adminArea: String) {
+        println(adminArea)
         val apiKey = "vmgAK287ultGS5QONMoayZQ0M8iex7Q8"
-        val call = service.getEvents(apiKey, city = "Erzurum")
+        val call = service.getEvents(apiKey, city = adminArea)
 
-        call.enqueue(object : retrofit2.Callback<EventResponse> {
+        call.enqueue(object : Callback<EventResponse> {
             override fun onResponse(
-                call: retrofit2.Call<EventResponse>,
-                response: retrofit2.Response<EventResponse>
+                call: Call<EventResponse>,
+                response: Response<EventResponse>
             ) {
                 if (response.isSuccessful) {
                     val events = response.body()?._embedded?.events
-
                     events?.forEach { event ->
-                        // Mekan bilgilerini al
+                        // Etkinlikleri işle
                         val venue = event._embedded?.venues?.firstOrNull()
                         val venueName = venue?.name ?: "Unknown Venue"
                         val venueAddress = venue?.address?.line1 ?: "Address not available"
                         val cityName = venue?.city?.name ?: "City not available"
                         val imageUrl = event.images?.firstOrNull()?.url
 
-
-                        // Adres bilgisini düzenle
                         val fullAddress = if (venueAddress != "Address not available") {
                             "$venueAddress, $cityName"
                         } else {
                             cityName
                         }
                         val category = event.classifications?.firstOrNull()?.segment?.name ?: "Uncategorized"
-                        val startTime = event.dates.start.localTime ?: "Bilinmiyor" // Başlangıç saati
+                        val startTime = event.dates.start.localTime ?: "Bilinmiyor"
                         val endTime = event.dates.end?.localTime ?: "Bilinmiyor"
 
-
-                        // Etkinlik bilgilerini listeye ekle
                         val eventDetails = EventDetails(
                             id = event.id,
                             name = event.name,
@@ -322,29 +317,21 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                             category = category,
                             startTime = startTime,
                             endTime = endTime,
-
-
                         )
                         eventList.add(eventDetails)
-                        println(eventList[0])
-
-
                     }
-                    // RecyclerView adaptörünü güncelle
                     findViewById<RecyclerView>(R.id.recyclerViewEventList).adapter?.notifyDataSetChanged()
-
-
-
                 } else {
                     println("Error: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: retrofit2.Call<EventResponse>, t: Throwable) {
+            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 println("Failed to fetch events: ${t.message}")
             }
         })
     }
+
 
     private fun hasLocationPermission(): Boolean {
         return ActivityCompat.checkSelfPermission(
@@ -362,6 +349,9 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     }
     //val latitude
    // val longitude
+    var adminArea = "string" // Bölge/Bölge adı
+
+
     private fun getUserLocation() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -370,19 +360,43 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                 if (location != null) {
-                    val latitude = location.latitude
-                    val longitude = location.longitude
-                    Toast.makeText(
-                        this,
-                        "Konum: Lat: $latitude, Lng: $longitude",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    var latitude = location.latitude
+                    var longitude = location.longitude
+                    val geocoder = Geocoder(this)
+
+
+
+                    // Konumu şehir ismine çevirmek için Geocoder kullanıyoruz
+                    try {
+                        val addresses = geocoder.getFromLocation(latitude, longitude, 5) // 5 adres al
+                        if (addresses != null && addresses.isNotEmpty()) {
+                            for (address in addresses) {
+                                val city = address.locality // Şehir adı
+                                val country = address.countryName // Ülke adı
+                                fetchEvents(adminArea)
+                                 adminArea = address.adminArea // Bölge/Bölge adı
+                                Toast.makeText(
+                                    this,
+                                    "Konum: Lat: $latitude, Lng: $longitude,  Bölge: $adminArea",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                break // İlk uygun sonucu almak için döngüyü kırıyoruz
+                            }
+                        } else {
+                            Toast.makeText(this, "Şehir bilgisi bulunamadı.", Toast.LENGTH_SHORT).show()
+                        }
+
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Toast.makeText(this, "Konum bilgisi alınamadı.", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(this, "Konum alınamadı.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
 
     override fun onItemClick(event: Giris.EventDetails) {
         // Tıklanan öğenin detaylarını DetailActivity'ye gönder
@@ -424,4 +438,10 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewEventList)
         val adapter = recyclerView.adapter as EventAdapter
         adapter.updateData(filteredList)
-    }}
+    }
+
+    }
+
+
+
+

@@ -52,7 +52,9 @@
 
         <activity
             android:name=".Giris"
-            android:exported="false" />
+            android:windowSoftInputMode="adjustNothing"
+
+        android:exported="false" />
         <activity
             android:name=".KaydolmaEkran"
             android:exported="false" />

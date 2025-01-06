@@ -13,8 +13,9 @@
         android:layout_width="356dp"
         android:layout_height="40dp"
 
+        android:layout_marginStart="27dp"
         android:layout_marginTop="183dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="623dp"
         android:text="Event Name"
         android:textColor="#2B15D5"
@@ -30,8 +31,9 @@
         android:layout_width="272dp"
         android:layout_height="30dp"
 
+        android:layout_marginStart="16dp"
         android:layout_marginTop="282dp"
-        android:layout_marginEnd="139dp"
+        android:layout_marginEnd="123dp"
         android:layout_marginBottom="534dp"
         android:background="@drawable/textview_border"
         android:text="Event Date"
@@ -58,12 +60,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/eventVenueDetail"
         android:layout_width="345dp"
         android:layout_height="42dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="312dp"
-        android:layout_marginEnd="66dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="492dp"
         android:background="@drawable/textview_border"
         android:text="Event Venue"
@@ -78,27 +82,26 @@
         android:id="@+id/eventime"
         android:layout_width="252dp"
         android:layout_height="40dp"
-        android:layout_marginTop="212dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="499dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="242dp"
+        android:layout_marginEnd="143dp"
+        android:layout_marginBottom="564dp"
         android:background="@drawable/textview_border"
         android:text="Event time"
         android:textColor="#000000"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.315" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/eventaddress"
         android:layout_width="383dp"
         android:layout_height="55dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="354dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="437dp"
         android:background="@drawable/textview_border"
         android:text="Event Address"

@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var callbackManager: CallbackManager
     private lateinit var loginManager: LoginManager
     private var oneTapClint: SignInClient? =
-        null//google tarafından yapılan one tap clientin tanımlanmasını sağlar.Bunun üzerinden oturum açma ve kullanıcı doğrulama işlemleri gerçekleştirilir.
+        null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,17 +77,6 @@ class MainActivity : AppCompatActivity() {
         fcbkbutton.setOnClickListener(){
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile,email"));
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
