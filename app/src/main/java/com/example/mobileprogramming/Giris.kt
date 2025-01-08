@@ -350,6 +350,7 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
     //val latitude
    // val longitude
     var adminArea = "string" // Bölge/Bölge adı
+    var city ="string"
 
 
     private fun getUserLocation() {
@@ -371,13 +372,13 @@ class Giris : AppCompatActivity(),EventAdapter.OnItemClickListener {
                         val addresses = geocoder.getFromLocation(latitude, longitude, 5) // 5 adres al
                         if (addresses != null && addresses.isNotEmpty()) {
                             for (address in addresses) {
-                                val city = address.locality // Şehir adı
+                                 city = address.locality // Şehir adı
                                 val country = address.countryName // Ülke adı
-                                fetchEvents(adminArea)
+                                fetchEvents(city)
                                  adminArea = address.adminArea // Bölge/Bölge adı
                                 Toast.makeText(
                                     this,
-                                    "Konum: Lat: $latitude, Lng: $longitude,  Bölge: $adminArea",
+                                    "Konum: Lat: $latitude, Lng: $longitude, Şehir: $city, Ülke: $country, Bölge: $adminArea",
                                     Toast.LENGTH_LONG
                                 ).show()
                                 break // İlk uygun sonucu almak için döngüyü kırıyoruz
